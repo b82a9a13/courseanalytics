@@ -1,0 +1,18 @@
+<h1 class='bold text-center'>{{title}}</h1>
+<form id="{{type}}_c_form">
+    <div class='d-flex'><p class='w-25'>{{choose_title}}<div>
+    <ul class='list-unstyled'>
+    {{#courses}}
+        <li><label><input type='checkbox' value='{{1}}' class='course-options m-1'>{{0}}</label></li>
+    {{/courses}}
+    </ul></div></p></div>
+    <div class='d-flex'><p class='w-25'>{{all_title}}</p>
+        <ul class='list-unstyled'><li><label><input type='checkbox' value='all' class='m-1' id="course_all">{{yes}}</label></li></ul>
+    </div>
+    <div class='d-flex'>
+        <button type='submit' class='mr-1 btn btn-primary'>{{save_c}}</button>
+        <button type='button' class='mr-1 btn btn-primary' onclick="window.location.href='./manage.php'">{{cancel}}</button>
+    </div>
+    <p class='text-error' style='display:none;' id="{{type}}_c_error"></p>
+</form>
+<script src='./amd/min/{{type}}.min.js'></script>

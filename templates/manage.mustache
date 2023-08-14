@@ -1,0 +1,14 @@
+<link rel='stylesheet' href='./classes/css/manage.css'>
+<h1 class='bold text-center'>{{title}}</h1>
+<div class='individual-section'>
+    <h2>{{title_tcl}}</h2>
+    <p id="showorhide" class='c-pointer text-primary'>{{show_l}}</p>
+    <div id="courselist" style='display:none;'>
+        {{#courses}}
+            <p><a class='c-pointer' onclick="window.open('./../../course/view.php?id={{1}}', '_blank')"><b>{{0}}</b></a></p>
+        {{/courses}}
+    </div>
+    <button type='button' class='btn-primary btn' onclick="window.location.href='./add.php'">{{add_btn}}</button>
+    <button type='button' class='btn-primary btn' onclick="window.location.href='./remove.php'">{{del_btn}}</button>
+</div>
+<script src='./amd/src/manage.js'></script>

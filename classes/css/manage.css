@@ -1,0 +1,18 @@
+.individual-section-chart, .individual-section, .table-section{
+    border: 2px solid #95287A;
+    border-radius: 5px;
+    padding: .5rem;
+}
+.individual-section{
+    display: inline-block;
+}
+.individual-section-chart, .individual-section{
+    background: #F5F5F5;
+}
+.table-section{
+    background: #FCFCFC;
+    margin-top: .5rem;
+}
+.c-pointer{
+    cursor: pointer;
+}
