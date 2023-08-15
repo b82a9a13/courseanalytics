@@ -1,5 +1,7 @@
+//Listens for a form submit for a specific id
 $(`#add_c_form`)[0].addEventListener('submit', (e)=>{
     e.preventDefault();
+    //Define the error element and create the paramaters for the request
     const errorText = $(`#add_c_error`)[0];
     errorText.style.display = 'none';
     let params = '';
@@ -16,11 +18,13 @@ $(`#add_c_form`)[0].addEventListener('submit', (e)=>{
         });
         params += `&total=${total}`;
     }
+    //create the request and send it
     const xhr = new XMLHttpRequest();
     xhr.open('POST', './classes/inc/add.inc.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function(){
         if(this.status == 200){
+            //Handle the response
             const text = JSON.parse(this.responseText);
             if(text['error']){
                 errorText.innerText = text['error'];

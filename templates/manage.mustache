@@ -8,7 +8,27 @@
             <p><a class='c-pointer' onclick="window.open('./../../course/view.php?id={{1}}', '_blank')"><b>{{0}}</b></a></p>
         {{/courses}}
     </div>
-    <button type='button' class='btn-primary btn' onclick="window.location.href='./add.php'">{{add_btn}}</button>
-    <button type='button' class='btn-primary btn' onclick="window.location.href='./remove.php'">{{del_btn}}</button>
+    <button type='button' class='btn-primary btn m-1' onclick="window.location.href='./add.php'">{{add_btn}}</button>
+    <button type='button' class='btn-primary btn m-1' onclick="window.location.href='./remove.php'">{{del_btn}}</button>
+</div><br>
+<div class='individual-section mt-2' id="chart_div">
+    <h2>{{charts}}</h2>
+    <div id="chart_btns">
+        <button class='btn btn-primary m-1' onclick="render('eu','chart')" id="eu_btn">Show {{enrolled_u}}</button>
+    </div>
+    <h2 class='text-error' style='display:none;' id="chart_error"></h2>
+    <div id="chart_content" class='table-section' style='display:none;'></div>
+</div><br>
+<div class='individual-section mt-2' id="table_div">
+    <h2>{{tables}}</h2>
+    <div id="table_btns">
+        <button class='btn btn-primary m-1' onclick="render('cd', 'table')" id="cd_btn">Show {{course_d}}</button>
+        <button class='btn btn-primary m-1' onclick="render('al', 'table')" id="al_btn">Show {{all_l}}</button>
+        <button class='btn btn-primary m-1' onclick="render('nau', 'table')" id="nau_btn">Show {{never_au}}</button>
+        <button class='btn btn-primary m-1' onclick="render('eh', 'table')" id="eh_btn">Show {{enrolment_h}}</button>
+        <button class='btn btn-primary m-1' onclick="render('nuh', 'table')" id="nuh_btn">Show {{new_uh}}</button>
+    </div>
+    <h2 class='text-error' style='display:none;' id="table_error"></h2>
+    <div id="table_content" class='table-section' style='display:none;'></div>
 </div>
 <script src='./amd/src/manage.js'></script>

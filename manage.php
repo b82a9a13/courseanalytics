@@ -24,13 +24,22 @@ $PAGE->set_pagelayout('admin');
 echo $OUTPUT->header();
 
 $template = (Object)[
-    'title' => get_string('manage_ca', $p),
+    'title' => $title,
     'title_tcl' => get_string('tracked_cl', $p),
     'show_l' => get_string('show_l', $p),
     'add_btn' => get_string('add_c', $p),
     'del_btn' => get_string('remove_c', $p),
+    'enrolled_u' => get_string('enrolled_u', $p),
+    'charts' => get_string('charts', $p),
+    'tables' => get_string('tables', $p),
+    'course_d' => get_string('course_d', $p),
+    'all_l' => get_string('all_l', $p),
+    'never_au' => get_string('never_au', $p),
+    'enrolment_h' => get_string('enrolment_h', $p),
+    'new_uh' => get_string('new_uh', $p),
     'courses' => array_values($lib->get_tracked_courses())
 ];
 echo $OUTPUT->render_from_template('local_courseanalytics/manage', $template);
 
 echo $OUTPUT->footer();
+$_SESSION['ca_manage'] = true;
