@@ -131,7 +131,7 @@ class lib{
         $endArray = [];
         foreach($records as $record){
             if(isset($result[$record->id])){
-                array_push($endArray, [$record->fullname, $result[$record->id], $record->id]);
+                array_push($endArray, [$result[$record->id], $record->fullname, $record->id]);
             }
         }
         asort($endArray);
@@ -148,13 +148,22 @@ class lib{
             foreach($tracked as $track){
                 if($track->courseid === $record->courseid){
                     $user = $DB->get_record_sql('SELECT firstname, lastname, institution, firstaccess, lastaccess FROM {user} WHERE id = ?',[$record->userid]);
-                    if(!in_array([$record->userid, $user->firstname.' '.$user->lastname, $user->institution, date('d/m/Y',$user->firstaccess), date('d/m/Y',$user->lastaccess)], $array)){
-                        array_push($array, [$record->userid, $user->firstname.' '.$user->lastname, $user->institution, date('d/m/Y',$user->firstaccess), date('d/m/Y',$user->lastaccess)]);
+                    if(!in_array([$user->firstaccess, $record->userid, $user->firstname.' '.$user->lastname, $user->institution, $user->lastaccess], $array)){
+                        array_push($array, [$user->firstaccess, $record->userid, $user->firstname.' '.$user->lastname, $user->institution, $user->lastaccess]);
                     }
                 }
             }
         }
-        return $array;
+        asort($array);
+        $result = [];
+        foreach($array as $arr){
+            if($arr[0] == 0 && $arr[4] == 0){
+                array_push($result, [$arr[1], $arr[2], $arr[3], 'N/A', 'N/A']);
+            } else {
+                array_push($result, [$arr[1], $arr[2], $arr[3], date('d/m/Y',$arr[0]), date('d/m/Y',$arr[4])]);
+            }
+        }
+        return $result;
     }
 
     //Get all users that have not accessed their account
@@ -169,7 +178,7 @@ class lib{
     }
 
     //Get enrolment history for the tracked courses for the current user
-    public function get_learner_enrolment_history(): array{
+    public function get_learner_enrolment_history($start, $end): array{
         global $DB;
         $records = $DB->get_records_sql('SELECT ra.id as id, c.id as courseid, c.fullname as fullname, eu.userid as userid, eu.timecreated as timecreated FROM {course} c
         INNER JOIN {context} ctx ON c.id = ctx.instanceid
@@ -177,7 +186,7 @@ class lib{
         INNER JOIN (
             SELECT e.courseid, ue.userid, ue.timecreated FROM {enrol} e
             INNER JOIN {user_enrolments} ue ON ue.enrolid = e.id AND ue.status != 1
-        ) eu ON c.id = eu.courseid AND ra.userid = eu.userid'
+        ) eu ON c.id = eu.courseid AND ra.userid = eu.userid AND eu.timecreated < ? AND eu.timecreated > ?',[$end, $start]
         );
         $array = [];
         $tracked = $DB->get_records_sql('SELECT id, courseid FROM {course_tracked} WHERE userid = ?',[$this->get_userid()]);
@@ -204,6 +213,36 @@ class lib{
         $result = [];
         foreach($array as $arr){
             array_push($result, [$arr[2], $arr[1], date('d/m/Y',$arr[0])]);
+        }
+        return $result;
+    }
+
+    //Return search result for the "Search for Learner" form as an array
+    public function get_learner_search_result($array): array{
+        global $DB;
+        $array = [
+            ['username', $array[0]],
+            ['lastname', $array[1]],
+            ['firstname', $array[2]],
+            ['email', $array[3]],
+            ['city', $array[4]],
+            ['institution', $array[5]]
+        ];
+        $result = [];
+        $details = [];
+        $query = '';
+        $first = true;
+        foreach($array as $arr){
+            if(!empty($arr[1])){
+                array_push($details, "%".strtolower($arr[1])."%");
+                $query .= "AND lower($arr[0]) LIKE ? ";
+            }
+        }
+        if($query !== ''){
+            $records = $DB->get_records_sql('SELECT username, lastname, firstname, email, city, institution, id, deleted FROM {user} WHERE deleted = 0 '.$query, $details);
+            foreach($records as $record){
+                array_push($result, [$record->username, $record->lastname, $record->firstname, $record->email, $record->city, $record->institution, $record->id]);
+            }
         }
         return $result;
     }

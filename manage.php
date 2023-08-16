@@ -7,12 +7,12 @@
  */
 
 require_once(__DIR__ . '/../../config.php');
-use local_courseanalytics\lib;
-$lib = new lib();
 require_login();
 $context = context_system::instance();
 require_capability('local/courseanalytics:courseanalytics', $context);
 $p = 'local_courseanalytics';
+use local_courseanalytics\lib;
+$lib = new lib();
 
 $PAGE->set_url(new moodle_url('/local/courseanalytics/manage.php'));
 $PAGE->set_context(\context_system::instance());
@@ -37,6 +37,8 @@ $template = (Object)[
     'never_au' => get_string('never_au', $p),
     'enrolment_h' => get_string('enrolment_h', $p),
     'new_uh' => get_string('new_uh', $p),
+    'print_fr' => get_string('print_fr', $p),
+    'search_fl' => get_string('search_fl', $p),
     'courses' => array_values($lib->get_tracked_courses())
 ];
 echo $OUTPUT->render_from_template('local_courseanalytics/manage', $template);

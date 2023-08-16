@@ -7,12 +7,12 @@
  */
 
 require_once(__DIR__ . '/../../config.php');
-use local_courseanalytics\lib;
-$lib = new lib();
 require_login();
 $context = context_system::instance();
 require_capability('local/courseanalytics:courseanalytics', $context);
 $p = 'local_courseanalytics';
+use local_courseanalytics\lib;
+$lib = new lib();
 
 $PAGE->set_url(new moodle_url('/local/courseanalytics/remove.php'));
 $PAGE->set_context(\context_system::instance());

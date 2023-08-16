@@ -5,6 +5,7 @@ sorh.addEventListener('click', ()=>{
     list.style.display = (list.style.display === 'none') ? 'block' : 'none';
     sorh.innerText = (sorh.innerText.includes('Show')) ? sorh.innerText.replace('Show','Hide') : sorh.innerText.replace('Hide','Show');
 });
+//function is used to retrieve the html used to render tables/charts
 function render(type, opt){
     const errorText = $(`#${opt}_error`)[0];
     errorText.style.display = 'none';
@@ -50,26 +51,4 @@ function render(type, opt){
             btn.innerText = btn.innerText.replace('Hide', 'Show');
         }
     }
-}
-function headerClicked(string, integer){
-    const headers = $(`#${string}_thead`).find('tr:first th');
-    for(let i = 0; i < headers.length; i++){
-        if(i === integer){
-            if(headers[i].getAttribute('sort') === 'asc'){
-                headers[i].setAttribute('sort', 'desc');
-                headers[i].innerHTML = headers[i].innerHTML.replace('↑', '↓');
-            } else if(headers[i].getAttribute('sort') === 'desc'){
-                headers[i].setAttribute('sort', 'asc');
-                headers[i].innerHTML = headers[i].innerHTML.replace('↓', '↑');
-            } else if(headers[i].getAttribute('sort') === ''){
-                headers[i].innerHTML = headers[i].innerHTML+" ↑";
-                headers[i].setAttribute('sort', 'asc');
-            }
-        } else {
-            headers[i].setAttribute('sort', '');
-            headers[i].innerHTML = headers[i].innerHTML.replace('↑', '');
-            headers[i].innerHTML = headers[i].innerHTML.replace('↓', '');
-        }
-    }
-    const body = $(`#${string}_tbody`).find('tr');
 }

@@ -14,9 +14,9 @@ $p = 'local_courseanalytics';
 use local_courseanalytics\lib;
 $lib = new lib();
 
-$PAGE->set_url(new moodle_url('/local/courseanalytics/add.php'));
+$PAGE->set_url(new moodle_url('/local/courseanalytics/search.php'));
 $PAGE->set_context(\context_system::instance());
-$title = get_string('add_c', $p);
+$title = get_string('search_fl', $p);
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
 $PAGE->set_pagelayout('admin');
@@ -24,15 +24,16 @@ $PAGE->set_pagelayout('admin');
 echo $OUTPUT->header();
 
 $template = (Object)[
-    'save_c' => get_string('save_c', $p),
-    'cancel' => get_string('cancel', $p),
-    'choose_title' => get_string('choose_cta', $p),
-    'all_title' => get_string('select_ac', $p),
-    'yes' => get_string('yes', $p),
-    'title' => $title,
-    'type' => 'add',
-    'courses' => $lib->get_remaining_courses(),
+    'analytics' => get_string('analytics', $p),
+    'username' => get_string('username', $p),
+    'lastname' => get_string('lastname', $p),
+    'firstname' => get_string('firstname', $p),
+    'email' => get_string('email', $p),
+    'city' => get_string('city', $p),
+    'company' => get_string('company', $p),
+    'search' => get_string('search', $p),
+    'title' => $title
 ];
-echo $OUTPUT->render_from_template('local_courseanalytics/manage_courses', $template);
+echo $OUTPUT->render_from_template('local_courseanalytics/search', $template);
 
 echo $OUTPUT->footer();

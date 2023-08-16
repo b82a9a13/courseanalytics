@@ -1,0 +1,34 @@
+<div class='text-center'><button class='btn btn-primary m-1' onclick="window.location.href='./manage.php'">{{analytics}}</button></div>
+<h1 class='bold text-left'>{{title}}</h1>
+<form id="search_form">
+    <div class='d-flex mb-1'>
+        <h2 class='w-25'>{{username}}</h2>
+        <input type='text' id="username" placeholder="{{username}}">
+    </div>
+    <div class='d-flex mb-1'>
+        <h2 class='w-25'>{{lastname}}</h2>
+        <input type='text' id="lastname" placeholder="{{lastname}}">
+    </div>
+    <div class='d-flex mb-1'>
+        <h2 class='w-25'>{{firstname}}</h2>
+        <input type='text' id="firstname" placeholder={{firstname}}>
+    </div>
+    <div class='d-flex mb-1'>
+        <h2 class='w-25'>{{email}}</h2>
+        <input type='text' id="email" placeholder="{{email}}">
+    </div>
+    <div class='d-flex mb-1'>
+        <h2 class='w-25'>{{city}}</h2>
+        <input type='text' id="city" placeholder="{{city}}">
+    </div>
+    <div class='d-flex mb-1'>
+        <h2 class='w-25'>{{company}}</h2>
+        <input type='text' id="company" placeholder="{{company}}">
+        <button class='btn btn-primary ml-1' type='submit'>{{search}}</button>
+    </div>
+    <h2 class='text-error ml-1' id="search_error" style='display:none;'></h2>
+</form>
+<div id="result_div"></div>
+<script defer src='./amd/src/search.js'></script>
+<script defer src='./amd/min/sort.min.js'></script>
+<script defer src='./amd/src/update.js'></script>

@@ -31,7 +31,7 @@ if(!isset($_SESSION['ca_manage'])){
             ';
             $data = $lib->tracked_course_enrolment();
             foreach($data as $dat){
-                $return .= "<tr><td>$dat[0]</td><td>$dat[1]</td></tr>";
+                $return .= "<tr><td><a href='window.location.href=./../../../course/view.php?id=".$dat[2]."' target='_blank'>$dat[1]</a></td><td>$dat[0]</td></tr>";
             }
             $return .= '</tbody></table>';
             $returnText->return = str_replace("  ","",$return);

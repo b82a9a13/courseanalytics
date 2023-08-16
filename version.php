@@ -8,5 +8,5 @@
 
 defined('MOODLE_INTERNAL') || die();
 $plugin->component = 'local_courseanalytics';
-$plugin->version = 3;
+$plugin->version = 4;
 $plugin->requires = 2016052314; // Moodle version
