@@ -31,7 +31,7 @@ $template = (Object)[
     'yes' => get_string('yes', $p),
     'title' => $title,
     'type' => 'add',
-    'courses' => $lib->get_remaining_courses(),
+    'courses' => array_values($lib->get_remaining_courses()),
 ];
 echo $OUTPUT->render_from_template('local_courseanalytics/manage_courses', $template);
 
