@@ -240,10 +240,26 @@ class lib{
         }
         if($query !== ''){
             $records = $DB->get_records_sql('SELECT username, lastname, firstname, email, city, institution, id, deleted FROM {user} WHERE deleted = 0 '.$query, $details);
+            $int = 1;
             foreach($records as $record){
-                array_push($result, [$record->username, $record->lastname, $record->firstname, $record->email, $record->city, $record->institution, $record->id]);
+                array_push($result, [$int, $record->username, $record->lastname, $record->firstname, $record->email, $record->city, $record->institution, $record->id]);
+                $int++;
             }
         }
         return $result;
+    }
+
+    //Used to update companies for specific users
+    public function update_users_company($array): bool{
+        global $DB;
+        foreach($array as $arr){
+            $record = new stdClass();
+            $record->id = $arr[1];
+            $record->institution = $arr[0];
+            if($DB->update_record('user', $record) == false){
+                return false;
+            }
+        }
+        return true;
     }
 }

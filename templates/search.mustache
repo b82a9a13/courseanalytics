@@ -1,3 +1,4 @@
+<link rel='stylesheet' href='./classes/css/search.css'>
 <div class='text-center'><button class='btn btn-primary m-1' onclick="window.location.href='./manage.php'">{{analytics}}</button></div>
 <h1 class='bold text-left'>{{title}}</h1>
 <form id="search_form">
@@ -28,7 +29,26 @@
     </div>
     <h2 class='text-error ml-1' id="search_error" style='display:none;'></h2>
 </form>
-<div id="result_div"></div>
-<script defer src='./amd/src/search.js'></script>
+<div id="result_div" style='display:none;'>
+    <table class="table table-bordered table-striped table-hover">
+        <thead id="result_thead">
+            <tr>
+                <th class='c-pointer' onclick="headerClicked('result', 0)" sort='asc'># <span>&uarr;</span></th>
+                <th class='c-pointer' onclick="headerClicked('result', 1)" sort>{{username}} <span></span></th>
+                <th class='c-pointer' onclick="headerClicked('result', 2)" sort>{{lastname}} <span></span></th>
+                <th class='c-pointer' onclick="headerClicked('result', 3)" sort>{{firstname}} <span></span></th>
+                <th class='c-pointer' onclick="headerClicked('result', 4)" sort>{{email}} <span></span></th>
+                <th class='c-pointer' onclick="headerClicked('result', 5)" sort>{{city}} <span></span></th>
+                <th class='c-pointer' onclick="headerClicked('result', 6)" sort>{{company}} <span></span></th>
+            </tr>
+        </thead>
+        <tbody id="result_tbody">
+        </tbody>
+    </table>
+    <h2 class='text-success' id="update_success" style='display:none;'></h2>
+    <h2 class='text-error' id="update_error" style='display:none;'></h2>
+    <button class='btn btn-primary m-1' onclick="update_companys()">{{update_cs}}</button>
+</div>
+<script defer src='./amd/min/search.min.js'></script>
 <script defer src='./amd/min/sort.min.js'></script>
-<script defer src='./amd/src/update.js'></script>
+<script defer src='./amd/min/update.min.js'></script>

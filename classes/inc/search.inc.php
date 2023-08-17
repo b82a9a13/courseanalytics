@@ -13,33 +13,33 @@ $firstname = '';
 $email = '';
 $city = '';
 $company = '';
-if(!isset($_POST['username']) || !isset($_POST['lastname']) || !isset($_POST['firstname']) || !isset($_POST['email']) || !isset($_POST['city']) || !isset($_POST['company'])){
-    $error = 'Missing required values';
+if(!isset($_POST['username']) || !isset($_POST['lastname']) || !isset($_POST['firstname']) || !isset($_POST['email']) || !isset($_POST['city']) || !isset($_POST['company']) || !isset($_SESSION['ca_search'])){
+    $error = get_string('missing_rv', $p);
 } else {
     $error = 'Invalid:';
     $username = $_POST['username'];
     if(!preg_match("/^[a-zA-Z@. \-]*$/", $username) && !empty($username)){
-        $error .= ' username='.preg_replace("/[a-zA-Z@. \-]/", "",$username).',';
+        $error .= ' '.get_string('username', $p).'='.preg_replace("/[a-zA-Z@. \-]/", "",$username).',';
     }
     $lastname = $_POST['lastname'];
     if(!preg_match("/^[a-zA-Z \-]*$/", $lastname) && !empty($lastname)){
-        $error .= ' lastname='.preg_replace("/[a-zA-Z \-]/","",$lastname).',';
+        $error .= ' '.get_string('lastname', $p).'='.preg_replace("/[a-zA-Z \-]/","",$lastname).',';
     }
     $firstname = $_POST['firstname'];
     if(!preg_match("/^[a-zA-Z \-]*$/", $firstname) && !empty($firstname)){
-        $error .= ' firstname='.preg_replace("/[a-zA-Z \-]/","",$firstname).',';
+        $error .= ' '.get_string('firstname', $p).'='.preg_replace("/[a-zA-Z \-]/","",$firstname).',';
     }
     $email = $_POST['email'];
     if(!preg_match("/^[a-zA-Z0-9@\-_.]*$/", $email) && !empty($email)){
-        $error .= ' email='.preg_replace("/[a-zA-Z0-9@\-\_\.]/","",$email).',';
+        $error .= ' '.get_string('email', $p).'='.preg_replace("/[a-zA-Z0-9@\-_.]/","",$email).',';
     }
     $city = $_POST['city'];
     if(!preg_match("/^[a-zA-Z \-]*$/", $city) && !empty($city)){
-        $error .= ' city='.preg_replace("/[a-zA-Z \-]/","",$city).',';
+        $error .= ' '.get_string('city', $p).'='.preg_replace("/[a-zA-Z \-]/","",$city).',';
     }
     $company = $_POST['company'];
     if(!preg_match("/^[a-zA-Z\-()]*$/", $company) && !empty($company)){
-        $error .= ' company='.preg_replace("/[a-zA-Z\-()]/","",$company).',';
+        $error .= ' '.get_string('company', $p).'='.preg_replace("/[a-zA-Z\-()]/","",$company).',';
     }
 }
 
@@ -50,7 +50,25 @@ if($error !== '' && $error !== 'Invalid:'){
     if(empty($array)){
         $returnText->error = 'No search results';
     } else {
-        $returnText->return = $array;
+        if(empty($array)){
+            $returnText->return = $array;
+        } else {
+            $return = '';
+            foreach($array as $arr){
+                $return .= "
+                    <tr>
+                        <td>$arr[0]</td>
+                        <td><a href='window.location.href=./../../../user/profile.php?id=$arr[7]'>$arr[1]</a></td>
+                        <td>$arr[2]</td>
+                        <td>$arr[3]</td>
+                        <td>$arr[4]</td>
+                        <td>$arr[5]</td>
+                        <td><input class='update-company' value='$arr[6]' changed uid='$arr[7]' onchange='changed_company(this)'></td>
+                    </tr>
+                ";
+            }
+            $returnText->return = str_replace("  ","",$return);
+        }
     }
 }
 echo(json_encode($returnText));

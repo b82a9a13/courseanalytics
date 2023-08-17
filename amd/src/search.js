@@ -25,7 +25,7 @@ $(`#search_form`)[0].addEventListener('submit', (e)=>{
                     errorText.innerText = text['error'];
                     errorText.style.display = 'block';
                 } else if(text['return']){
-                    div.innerHTML = text['return'];
+                    $('#result_tbody')[0].innerHTML = text['return'];
                     div.style.display = 'block';
                 } else {
                     errorText.innerText = 'Loading error';

@@ -34,9 +34,13 @@ function headerClicked(string, integer){
                     tmpArray.push([new Date(`${tmpString[1]}/${tmpString[0]}/${tmpString[2]}`).getTime(), 'date']);
                 } else if(td.innerText.includes('N/A')){
                     tmpArray.push([0, 'date']);
-                }else if(td.querySelector('a')){
-                    tmpArray.push([td.innerText, td.querySelector('a').href]);
-                } else {
+                } else if(td.querySelector('a')){
+                    tmpArray.push([td.innerText, td.querySelector('a').getAttribute('href')]);
+                    console.log(td.querySelector('a').href);
+                } else if(td.querySelector('input')){
+                    const input = td.querySelector('input');
+                    tmpArray.push([[input.getAttribute('uid'), input.getAttribute('changed'), input.value], 'input']);
+                } else{
                     tmpArray.push([td.innerText, null]);
                 }
             })
@@ -77,8 +81,10 @@ function headerClicked(string, integer){
             for(let i = 0; i < element.length; i++){
                 if(element[i][1] === 'date'){
                     row += (element[i][0] > 0) ? `<td>${(new Date(element[i][0])).toLocaleDateString('en-GB')}</td>` : `<td>N/A</td>`;
+                } else if(element[i][1] === 'input'){
+                    row += `<td><input class='update-company' value='`+element[i][0][2]+`' changed='`+element[i][0][1]+`' uid='`+element[i][0][0]+`' onchange='changed_company(this)'></td>`
                 } else if(element[i][1] !== null){
-                    row += `<td><a href='window.location.href=${element[i][1]}' target='_blank'>${element[i][0]}</a></td>`;
+                    row += `<td><a href='window.location.href=`+element[i][1]+`' target='_blank'>${element[i][0]}</a></td>`;
                 } else {
                     row += `<td>${element[i][0]}</td>`;
                 }

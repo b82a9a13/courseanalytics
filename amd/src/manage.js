@@ -52,3 +52,41 @@ function render(type, opt){
         }
     }
 }
+function history_filter(type){
+    const errorText = $(`#hf_error`)[0];
+    errorText.style.display = 'none';
+    if(type == 'eh' || type == 'nuh'){
+        const startdate = $(`#startdate`)[0];
+        const enddate = $(`#enddate`)[0];
+        if(startdate.value == ''){
+            errorText.innerText = 'No start date provided';
+            errorText.style.display = 'block';
+        } else if(enddate.value == ''){
+            errorText.innerText = 'No end date provided';
+            errorText.style.display = 'block';
+        } else{
+            const params = `type=${type}&sd=${startdate.value}&ed=${enddate.value}`;
+            const xhr = new XMLHttpRequest()
+            xhr.open('POST', './classes/inc/history_render.inc.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function(){
+                if(this.status == 200){
+                    const text = JSON.parse(this.responseText);
+                    if(text['error']){
+                        errorText.innerText = text['error'];
+                        errorText.style.display = 'block';
+                    } else if(text['return']){
+                        $(`#${type}_tbody`)[0].innerHTML = text['return'];
+                    } else {
+                        errorText.innerText = 'Loading error';
+                        errorText.style.display = 'block';
+                    }
+                } else {
+                    errorText.innerText = 'Connection error';
+                    errorText.style.display = 'block';
+                }
+            }
+            xhr.send(params);
+        }
+    }
+}

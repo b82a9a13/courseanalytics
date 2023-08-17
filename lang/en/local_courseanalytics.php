@@ -36,7 +36,9 @@
 // I
     $string['invalid_tp'] = 'Invalid type provided';
     $string['invalid_top'] = 'Invalid total provided';
-    $string['invalid_vp'] = 'Invalid value provided. ';
+    $string['invalid_vp'] = 'Invalid value provided';
+    $string['invalid_sdp'] = 'Invalid start date provided';
+    $string['invalid_edp'] = 'Invalid end date provided';
 // J
 // K
 // L
@@ -88,6 +90,7 @@
     $string['to'] = 'To';
 // U
     $string['username'] = 'Username';
+    $string['update_cs'] = 'Update Company(s)';
 // V
 // W
 // X

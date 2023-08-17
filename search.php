@@ -32,8 +32,10 @@ $template = (Object)[
     'city' => get_string('city', $p),
     'company' => get_string('company', $p),
     'search' => get_string('search', $p),
+    'update_cs' => get_string('update_cs', $p),
     'title' => $title
 ];
 echo $OUTPUT->render_from_template('local_courseanalytics/search', $template);
 
 echo $OUTPUT->footer();
+$_SESSION['ca_search'] = true;
