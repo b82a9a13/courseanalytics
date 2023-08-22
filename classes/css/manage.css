@@ -16,3 +16,6 @@
 .c-pointer{
     cursor: pointer;
 }
+#chart_display{
+    justify-content:center;
+}

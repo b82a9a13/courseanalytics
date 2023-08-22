@@ -134,7 +134,7 @@ class lib{
                 array_push($endArray, [$result[$record->id], $record->fullname, $record->id]);
             }
         }
-        asort($endArray);
+        arsort($endArray);
         return $endArray;
     }
 

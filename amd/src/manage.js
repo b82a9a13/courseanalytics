@@ -18,6 +18,7 @@ function render(type, opt){
         array = ['cd', 'al', 'nau', 'eh', 'nuh'];
     } else if(opt === 'chart'){
         array = ['eu'];
+        $('#chart_div')[0].style.display = 'none';
     }
     if(array != []){
         if(btn.innerText.includes('Show')){
@@ -37,6 +38,20 @@ function render(type, opt){
                     } else if(text['return']){
                         div.innerHTML = text['return'];
                         div.style.display = 'block';
+                        if(text['script']){
+                            let script = document.createElement('script');
+                            script.innerHTML = 'drawChart([';
+                            text['script'].forEach((item)=>{
+                                script.innerHTML += '['+item[0]+',"'+item[1]+'"],';
+                            })
+                            script.innerHTML = script.innerHTML.slice(0, -1);
+                            script.innerHTML += '])';
+                            console.log(script);
+                            div.appendChild(script);
+                        }
+                        if(opt === 'chart'){
+                            $('#chart_div')[0].style.display = 'block';
+                        }
                     } else {
                         errorText.innerText = 'Loading error';
                         errorText.style.display = 'block';
@@ -52,8 +67,11 @@ function render(type, opt){
         }
     }
 }
+//Function is used to retrieve data for a specific start and end date
 function history_filter(type){
     const errorText = $(`#hf_error`)[0];
+    const div = $(`#${type}_tbody`)[0];
+    div.innerHTML = '';
     errorText.style.display = 'none';
     if(type == 'eh' || type == 'nuh'){
         const startdate = $(`#startdate`)[0];
@@ -76,9 +94,9 @@ function history_filter(type){
                         errorText.innerText = text['error'];
                         errorText.style.display = 'block';
                     } else if(text['return']){
-                        $(`#${type}_tbody`)[0].innerHTML = text['return'];
+                        div.innerHTML = text['return'];
                     } else {
-                        errorText.innerText = 'Loading error';
+                        errorText.innerText = 'No search results';
                         errorText.style.display = 'block';
                     }
                 } else {
@@ -89,4 +107,84 @@ function history_filter(type){
             xhr.send(params);
         }
     }
+}
+//Variables used for the charts div
+const canvas = $(`#chart_canvas`)[0];
+const ctx = canvas.getContext('2d');
+const int = 2;
+const letters = "0123456789ABCDEF";
+let current = [];
+//Function used to get a random color
+function getRandomColor(){
+    let color = '#';
+    for(let i = 0; i < 6; i++){
+        color += letters[Math.floor(Math.random()*16)];
+    }
+    return color;
+}
+//Function used to draw the chart
+function drawChart(data){
+    current = [];
+    const inner = $('#chart_display')[0];
+    inner.innerHTML = '';
+    const centerX = canvas.width / int;
+    const centerY = canvas.height / int;
+    const radius = Math.min(centerX, centerY) * 0.9;
+    total = data.reduce((acc, segment) => acc + segment[0], 0);
+    let startAngle = 0;
+    let colors = [];
+    data.forEach(segment => {
+        const angle = (segment[0] / total) * int * Math.PI;
+        let currentColor = getRandomColor();
+        if(colors.includes(currentColor)){ do { currentColor = getRandomColor(); } while (colors.includes(currentColor)); }
+        colors.push(currentColor);
+        ctx.fillStyle = currentColor;
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, startAngle, startAngle + angle);
+        ctx.lineTo(centerX, centerY);
+        ctx.fill();
+        startAngle += angle;
+        let id = '';
+        for(let i = 0; i < 3; i++){
+            id += letters[Math.floor(Math.random()*16)];
+        }
+        inner.innerHTML += `<p id="cc_${segment[1]+id}" filter='false' class='cc-text c-pointer mr-1' onclick='filter("${segment[1]+id}")'><canvas style="width:35px;height:15px;background-color:${currentColor};margin-right:.25rem;"></canvas><span>${segment[1]}</span></p>`;
+        current.push([segment[0], segment[1]+id, currentColor]);
+    });   
+    console.log(data);
+}
+//Used to filter out certain values when clicked on
+function filter(value){
+    const p = document.getElementById(`cc_${value}`);
+    if(p.getAttribute('filter') == 'true'){
+        p.style = '';
+        p.setAttribute('filter', 'false');
+    } else {
+        p.style = 'text-decoration: line-through;';
+        p.setAttribute('filter', 'true');
+    }
+    const text = document.querySelectorAll('.cc-text');
+    data = [];
+    text.forEach(function(val, index){
+        if(val.getAttribute('filter') == 'false'){
+            data.push(current[index]);
+        }
+    });
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let startAngle = 0;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = Math.min(centerX, centerY) * 0.9;
+    total = data.reduce((acc, segment) => acc + segment[0], 0);
+    data.forEach(segment => {
+        const angle = (segment[0] / total) * 2 * Math.PI;
+        ctx.fillStyle = segment[2];
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, startAngle, startAngle + angle);
+        ctx.lineTo(centerX, centerY);
+        ctx.fill();
+        startAngle += angle;
+    });
 }

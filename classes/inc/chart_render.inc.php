@@ -30,10 +30,13 @@ if(!isset($_SESSION['ca_manage'])){
                     <tbody>
             ';
             $data = $lib->tracked_course_enrolment();
+            $scriptArr = [];
             foreach($data as $dat){
                 $return .= "<tr><td><a href='window.location.href=./../../../course/view.php?id=".$dat[2]."' target='_blank'>$dat[1]</a></td><td>$dat[0]</td></tr>";
+                array_push($scriptArr, [$dat[0], $dat[1]]);
             }
             $return .= '</tbody></table>';
+            $returnText->script = $scriptArr;
             $returnText->return = str_replace("  ","",$return);
         }
     }
