@@ -18,4 +18,7 @@
 }
 #chart_display{
     justify-content:center;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
 }
