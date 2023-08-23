@@ -37,7 +37,6 @@ function render(type, opt){
                         errorText.style.display = 'block';
                     } else if(text['return']){
                         div.innerHTML = text['return'];
-                        div.style.display = 'block';
                         if(text['script']){
                             let script = document.createElement('script');
                             script.innerHTML = 'drawChart([';
@@ -188,3 +187,14 @@ function filter(value){
         startAngle += angle;
     });
 }
+const showcd = $(`#show_cd`)[0];
+showcd.addEventListener('click', ()=>{
+    const content = $(`#chart_content`)[0];
+    if(content.style.display == 'none'){
+        content.style.display = 'block';
+        showcd.innerText = 'Hide chart data';
+    } else if(content.style.display == 'block'){
+        content.style.display = 'none';
+        showcd.innerText = 'Show chart data';
+    }
+})

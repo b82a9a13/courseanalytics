@@ -68,6 +68,7 @@ if($error !== '' && $error !== 'Invalid:'){
                 ";
             }
             $returnText->return = str_replace("  ","",$return);
+            \local_courseanalytics\event\viewed_search_results::create(array('context' => \context_system::instance()))->trigger();
         }
     }
 }

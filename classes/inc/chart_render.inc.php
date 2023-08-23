@@ -19,7 +19,8 @@ if(!isset($_SESSION['ca_manage'])){
         $returnText->error = get_string('invalid_tp', $p);
     } else {
         if($type === 'eu'){
-            $return = '<h4>'.get_string('enrolled_u', $p).'</h4>
+            $title = get_string('enrolled_u', $p);
+            $return = '<h4>'.$title.'</h4>
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
@@ -38,6 +39,7 @@ if(!isset($_SESSION['ca_manage'])){
             $return .= '</tbody></table>';
             $returnText->script = $scriptArr;
             $returnText->return = str_replace("  ","",$return);
+            \local_courseanalytics\event\viewed_chart::create(array('context' => \context_system::instance(), 'other' => $title))->trigger();
         }
     }
 }

@@ -23,18 +23,18 @@ if(!isset($_POST['total']) || !isset($_SESSION['ca_search'])){
                 exit();
             } else {
                 $c = $_POST["c$i"];
-                $i = $_POST["i$i"];
+                $id = $_POST["i$i"];
                 if(!preg_match("/^[a-zA-Z\-()]*$/", $c) || empty($c)){
                     $returnText->error = [$i, "company for record $i contains invalid values: ".preg_replace('/[a-zA-Z\-()]/','',$c)];
                     echo(json_encode($returnText));
                     exit();
                 }
-                if(!preg_match("/^[0-9]*$/", $i) || empty($i)){
+                if(!preg_match("/^[0-9]*$/", $id) || empty($id)){
                     $returnText->error = get_string('invalid_vp', $p);
                     echo(json_encode($returnText));
                     exit();
                 }
-                array_push($array, [$c, $i]);
+                array_push($array, [$c, $id]);
             }
         }
         if($array !== []){

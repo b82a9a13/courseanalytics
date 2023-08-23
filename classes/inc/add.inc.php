@@ -50,8 +50,10 @@ if($error != ''){
 } else {
     if($type === 'all'){
         $returnText->return = $lib->add_all_courses();
+        \local_courseanalytics\event\created_tracked_course_records::create(array('context' => \context_system::instance()))->trigger();
     } elseif($type === 'select'){
         $returnText->return = $lib->add_courses($array);
+        \local_courseanalytics\event\created_tracked_course_records::create(array('context' => \context_system::instance()))->trigger();
     }
 }
 echo(json_encode($returnText));

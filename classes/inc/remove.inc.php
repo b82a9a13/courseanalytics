@@ -50,8 +50,10 @@ if($error != ''){
 } else {
     if($type === 'all'){
         $returnText->return = $lib->delete_all_tracked_courses();
+        \local_courseanalytics\event\deleted_tracked_course_records::create(array('context' => \context_system::instance()))->trigger();
     } elseif($type === 'select'){
         $returnText->return = $lib->delete_tracked_courses($array);
+        \local_courseanalytics\event\deleted_tracked_course_records::create(array('context' => \context_system::instance()))->trigger();
     }
 }
 echo(json_encode($returnText));

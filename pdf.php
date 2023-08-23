@@ -267,3 +267,4 @@ for($i = 1; $i < (count($data)+1); $i++){
 
 //Output pdf
 $pdf->Output('E-PortfolioWeeklyReport.pdf');
+\local_courseanalytics\event\viewed_pdf_report::create(array('context' => \context_system::instance()))->trigger();

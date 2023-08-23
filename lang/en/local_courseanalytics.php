@@ -83,6 +83,7 @@
     $string['start_d'] = 'Start Date';
     $string['search_fl'] = 'Search for Learner';
     $string['search'] = 'Search';
+    $string['show_cd'] = 'Show chart data';
 // T
     $string['tracked_cl'] = 'Tracked Courses List';
     $string['total_el'] = 'Total enrolled learners';

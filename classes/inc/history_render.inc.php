@@ -31,6 +31,7 @@ if(!isset($_SESSION['ca_manage'])){
                 $return = '';
                 $sd = (new DateTime($sd))->format('U');
                 $ed = (new DateTime($ed))->format('U');
+                $title = '';
                 if($type == 'eh'){
                     $data = $lib->get_learner_enrolment_history($sd, $ed);
                     for($i = 1; $i < (count($data)+1); $i++){
@@ -41,6 +42,7 @@ if(!isset($_SESSION['ca_manage'])){
                             <td>".$data[$i-1][4]."</td>
                         </tr>";
                     }
+                    $title = get_string('enrolment_h', $p);
                 } else if($type == 'nuh'){
                     $data = $lib->get_new_users($sd, $ed);
                     for($i = 1; $i < (count($data)+1); $i++){
@@ -50,8 +52,10 @@ if(!isset($_SESSION['ca_manage'])){
                             <td>".$data[$i-1][2]."</td>
                         </tr>";
                     }
+                    $title = get_string('new_uh', $p);
                 }
                 $returnText->return = str_replace("  ","",$return);
+                \local_courseanalytics\event\viewed_history_results::create(array('context' => \context_system::instance(), 'other' => $title))->trigger();
             }
         }
     }

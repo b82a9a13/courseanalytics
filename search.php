@@ -39,3 +39,4 @@ echo $OUTPUT->render_from_template('local_courseanalytics/search', $template);
 
 echo $OUTPUT->footer();
 $_SESSION['ca_search'] = true;
+\local_courseanalytics\event\viewed_search::create(array('context' => \context_system::instance()))->trigger();

@@ -39,9 +39,11 @@ $template = (Object)[
     'new_uh' => get_string('new_uh', $p),
     'print_fr' => get_string('print_fr', $p),
     'search_fl' => get_string('search_fl', $p),
+    'show_cd' => get_string('show_cd', $p),
     'courses' => array_values($lib->get_tracked_courses())
 ];
 echo $OUTPUT->render_from_template('local_courseanalytics/manage', $template);
 
 echo $OUTPUT->footer();
 $_SESSION['ca_manage'] = true;
+\local_courseanalytics\event\viewed_analytics::create(array('context' => \context_system::instance()))->trigger();

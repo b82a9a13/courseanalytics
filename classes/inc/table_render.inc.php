@@ -123,6 +123,7 @@ if(!isset($_SESSION['ca_manage'])){
             <tbody id='".$type."_tbody'>
         ";
         $returnText->return = str_replace("  ","",($head.$return));
+        \local_courseanalytics\event\viewed_table::create(array('context' => \context_system::instance(), 'other' => $title))->trigger();
     }
 }
 echo(json_encode($returnText));

@@ -258,6 +258,8 @@ class lib{
             $record->institution = $arr[0];
             if($DB->update_record('user', $record) == false){
                 return false;
+            } else {
+                \local_courseanalytics\event\updated_user_company::create(array('context' => \context_system::instance(), 'relateduserid' => $record->id))->trigger();
             }
         }
         return true;

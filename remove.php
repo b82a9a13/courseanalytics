@@ -36,3 +36,4 @@ $template = (Object)[
 echo $OUTPUT->render_from_template('local_courseanalytics/manage_courses', $template);
 
 echo $OUTPUT->footer();
+\local_courseanalytics\event\viewed_remove_courses::create(array('context' => \context_system::instance()))->trigger();
