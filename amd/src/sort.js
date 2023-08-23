@@ -36,7 +36,6 @@ function headerClicked(string, integer){
                     tmpArray.push([0, 'date']);
                 } else if(td.querySelector('a')){
                     tmpArray.push([td.innerText, td.querySelector('a').getAttribute('href')]);
-                    console.log(td.querySelector('a').href);
                 } else if(td.querySelector('input')){
                     const input = td.querySelector('input');
                     tmpArray.push([[input.getAttribute('uid'), input.getAttribute('changed'), input.value], 'input']);

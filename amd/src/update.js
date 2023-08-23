@@ -58,5 +58,4 @@ function update_companys(){
         }
         xhr.send(params);
     }
-    console.log(params);;
 }

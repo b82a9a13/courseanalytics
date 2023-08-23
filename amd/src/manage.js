@@ -37,6 +37,9 @@ function render(type, opt){
                         errorText.style.display = 'block';
                     } else if(text['return']){
                         div.innerHTML = text['return'];
+                        if((opt != 'chart')){
+                            div.style.display = 'block';
+                        }
                         if(text['script']){
                             let script = document.createElement('script');
                             script.innerHTML = 'drawChart([';
@@ -45,7 +48,6 @@ function render(type, opt){
                             })
                             script.innerHTML = script.innerHTML.slice(0, -1);
                             script.innerHTML += '])';
-                            console.log(script);
                             div.appendChild(script);
                         }
                         if(opt === 'chart'){
@@ -151,7 +153,6 @@ function drawChart(data){
         inner.innerHTML += `<p id="cc_${segment[1]+id}" filter='false' class='cc-text c-pointer mr-1' onclick='filter("${segment[1]+id}")'><canvas style="width:35px;height:15px;background-color:${currentColor};margin-right:.25rem;"></canvas><span>${segment[1]}</span></p>`;
         current.push([segment[0], segment[1]+id, currentColor]);
     });   
-    console.log(data);
 }
 //Used to filter out certain values when clicked on
 function filter(value){
