@@ -14,6 +14,11 @@ class lib{
         return $USER->id;
     }
 
+    public function get_username($id): string{
+        global $DB;
+        return $DB->get_record_sql('SELECT username FROM {user} WHERE id = ?',[$id])->username;
+    }
+
     //Get all courses that aren't already in the tracked_courses table
     public function get_remaining_courses(): array{
         global $DB;
