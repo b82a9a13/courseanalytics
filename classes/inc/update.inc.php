@@ -24,8 +24,8 @@ if(!isset($_POST['total']) || !isset($_SESSION['ca_search'])){
             } else {
                 $c = $_POST["c$i"];
                 $id = $_POST["i$i"];
-                if(!preg_match("/^[a-zA-Z\-()]*$/", $c) || empty($c)){
-                    $returnText->error = [$i, "company for record $i contains invalid values: ".preg_replace('/[a-zA-Z\-()]/','',$c)];
+                if(!preg_match("/^[a-zA-Z \-()]*$/", $c) || empty($c)){
+                    $returnText->error = [$id, "company for record $id contains invalid values: ".preg_replace('/[a-zA-Z \-()]/','',$c)];
                     echo(json_encode($returnText));
                     exit();
                 }
