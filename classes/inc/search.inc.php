@@ -13,33 +13,38 @@ $firstname = '';
 $email = '';
 $city = '';
 $company = '';
-if(!isset($_POST['username']) || !isset($_POST['lastname']) || !isset($_POST['firstname']) || !isset($_POST['email']) || !isset($_POST['city']) || !isset($_POST['company']) || !isset($_SESSION['ca_search'])){
-    $error = get_string('missing_rv', $p);
+if(!has_capability('local/courseanalytics:courseanalytics', $context)){
+    $error = get_string('you_dhrc', $p);
 } else {
-    $error = 'Invalid:';
-    $username = $_POST['username'];
-    if(!preg_match("/^[a-zA-Z@. \-]*$/", $username) && !empty($username)){
-        $error .= ' '.get_string('username', $p).'='.preg_replace("/[a-zA-Z@. \-]/", "",$username).',';
-    }
-    $lastname = $_POST['lastname'];
-    if(!preg_match("/^[a-zA-Z \-]*$/", $lastname) && !empty($lastname)){
-        $error .= ' '.get_string('lastname', $p).'='.preg_replace("/[a-zA-Z \-]/","",$lastname).',';
-    }
-    $firstname = $_POST['firstname'];
-    if(!preg_match("/^[a-zA-Z \-]*$/", $firstname) && !empty($firstname)){
-        $error .= ' '.get_string('firstname', $p).'='.preg_replace("/[a-zA-Z \-]/","",$firstname).',';
-    }
-    $email = $_POST['email'];
-    if(!preg_match("/^[a-zA-Z0-9@\-_.]*$/", $email) && !empty($email)){
-        $error .= ' '.get_string('email', $p).'='.preg_replace("/[a-zA-Z0-9@\-_.]/","",$email).',';
-    }
-    $city = $_POST['city'];
-    if(!preg_match("/^[a-zA-Z \-]*$/", $city) && !empty($city)){
-        $error .= ' '.get_string('city', $p).'='.preg_replace("/[a-zA-Z \-]/","",$city).',';
-    }
-    $company = $_POST['company'];
-    if(!preg_match("/^[a-zA-Z\-()]*$/", $company) && !empty($company)){
-        $error .= ' '.get_string('company', $p).'='.preg_replace("/[a-zA-Z\-()]/","",$company).',';
+    require_capability('local/courseanalytics:courseanalytics', $context);
+    if(!isset($_POST['username']) || !isset($_POST['lastname']) || !isset($_POST['firstname']) || !isset($_POST['email']) || !isset($_POST['city']) || !isset($_POST['company']) || !isset($_SESSION['ca_search'])){
+        $error = get_string('missing_rv', $p);
+    } else {
+        $error = 'Invalid:';
+        $username = $_POST['username'];
+        if(!preg_match("/^[a-zA-Z@. \-]*$/", $username) && !empty($username)){
+            $error .= ' '.get_string('username', $p).'='.preg_replace("/[a-zA-Z@. \-]/", "",$username).',';
+        }
+        $lastname = $_POST['lastname'];
+        if(!preg_match("/^[a-zA-Z \-]*$/", $lastname) && !empty($lastname)){
+            $error .= ' '.get_string('lastname', $p).'='.preg_replace("/[a-zA-Z \-]/","",$lastname).',';
+        }
+        $firstname = $_POST['firstname'];
+        if(!preg_match("/^[a-zA-Z \-]*$/", $firstname) && !empty($firstname)){
+            $error .= ' '.get_string('firstname', $p).'='.preg_replace("/[a-zA-Z \-]/","",$firstname).',';
+        }
+        $email = $_POST['email'];
+        if(!preg_match("/^[a-zA-Z0-9@\-_.]*$/", $email) && !empty($email)){
+            $error .= ' '.get_string('email', $p).'='.preg_replace("/[a-zA-Z0-9@\-_.]/","",$email).',';
+        }
+        $city = $_POST['city'];
+        if(!preg_match("/^[a-zA-Z \-]*$/", $city) && !empty($city)){
+            $error .= ' '.get_string('city', $p).'='.preg_replace("/[a-zA-Z \-]/","",$city).',';
+        }
+        $company = $_POST['company'];
+        if(!preg_match("/^[a-zA-Z\-()]*$/", $company) && !empty($company)){
+            $error .= ' '.get_string('company', $p).'='.preg_replace("/[a-zA-Z\-()]/","",$company).',';
+        }
     }
 }
 

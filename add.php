@@ -15,7 +15,7 @@ use local_courseanalytics\lib;
 $lib = new lib();
 
 $PAGE->set_url(new moodle_url('/local/courseanalytics/add.php'));
-$PAGE->set_context(\context_system::instance());
+$PAGE->set_context($context);
 $title = get_string('add_c', $p);
 $PAGE->set_title($title);
 $PAGE->set_heading($title);

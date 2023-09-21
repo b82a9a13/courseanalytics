@@ -5,7 +5,6 @@
  * @var stdClass $plugin
  */
 namespace local_courseanalytics;
-use dml_exception;
 use stdClass;
 
 class lib{

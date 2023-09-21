@@ -97,4 +97,5 @@
 // X
 // Y
     $string['yes'] = 'Yes';
+    $string['you_dhrc'] = 'You do not have the required capability';
 // Z
