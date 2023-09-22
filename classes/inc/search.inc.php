@@ -13,6 +13,7 @@ $firstname = '';
 $email = '';
 $city = '';
 $company = '';
+$context = context_system::instance();
 if(!has_capability('local/courseanalytics:courseanalytics', $context)){
     $error = get_string('you_dhrc', $p);
 } else {

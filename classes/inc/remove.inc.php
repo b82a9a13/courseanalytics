@@ -9,6 +9,7 @@ $array = [];
 $error = '';
 $p = 'local_courseanalytics';
 $type = '';
+$context = context_system::instance();
 if(!has_capability('local/courseanalytics:courseanalytics', $context)){
     $error = get_string('you_dhrc', $p);
 } else {

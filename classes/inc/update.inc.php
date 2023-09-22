@@ -6,7 +6,7 @@ $lib = new lib();
 
 $returnText = new stdClass();
 $p = 'local_courseanalytics';
-
+$context = context_system::instance();
 if(!has_capability('local/courseanalytics:courseanalytics', $context)){
     $returnText->error = get_string('you_dhrc', $p);
 } else {
