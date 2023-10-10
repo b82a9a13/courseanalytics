@@ -23,7 +23,7 @@ if(!has_capability('local/courseanalytics:courseanalytics', $context)){
     } else {
         $error = 'Invalid:';
         $username = $_POST['username'];
-        if(!preg_match("/^[a-zA-Z@. \-]*$/", $username) && !empty($username)){
+        if(!preg_match("/^[a-zA-Z0-9@. \-]*$/", $username) && !empty($username)){
             $error .= ' '.get_string('username', $p).'='.preg_replace("/[a-zA-Z@. \-]/", "",$username).',';
         }
         $lastname = $_POST['lastname'];
