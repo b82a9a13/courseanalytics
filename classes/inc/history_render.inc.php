@@ -23,9 +23,9 @@ if(!isset($_SESSION['ca_manage'])){
         } else {
             $sd = $_POST['sd'];
             $ed = $_POST['ed'];
-            if(!preg_match("/^[0-9\-]*$/", $sd) || empty($sd)){
+            if(!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $sd) || empty($sd)){
                 $returnText->error = get_string('invalid_sdp', $p);
-            } else if(!preg_match("/^[0-9\-]*$/", $ed) || empty($ed)){
+            } else if(!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $ed) || empty($ed)){
                 $returnText->error = get_string('invalid_edp', $p);
             } else {
                 $return = '';
