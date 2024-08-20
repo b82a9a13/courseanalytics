@@ -21,7 +21,7 @@ require_once($CFG->libdir.'/tcpdf/tcpdf.php');
 //Extends the TCPDF class to create custom Header and Footer
 class MYPDF extends TCPDF{
     public function Header(){
-        $this->Image('classes/img/ntalogo.png', $this->GetPageWidth() - 32, $this->GetPageHeight() - 22, 30, 20, 'PNG', '', '', true, 150, '', false, false, 0, false, false, false);
+        $this->Image('classes/img/logo.png', $this->GetPageWidth() - 32, $this->GetPageHeight() - 22, 30, 20, 'PNG', '', '', true, 150, '', false, false, 0, false, false, false);
     }
     public function Footer(){
         //Set position from botton
@@ -48,7 +48,7 @@ $tabletext = 12;
 $pdf->setPrintHeader(false);
 $pdf->AddPage('L');
 $pdf->setFont($font, 'B', 64);
-$pdf->Image('classes/img/ntalogo.png', ($pdf->GetPageWidth() / 2 )- 27, 5, 54, 36, 'PNG', '', '', true, 150, '', false, false, 0, false, false, false);
+$pdf->Image('classes/img/logo.png', ($pdf->GetPageWidth() / 2 )- 27, 5, 54, 36, 'PNG', '', '', true, 150, '', false, false, 0, false, false, false);
 $pdf->Cell(0, 0, '', 0, 0, 'C', 0, '', 0);
 $pdf->Ln();
 $pdf->Ln();
